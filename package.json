@@ -1,0 +1,27 @@
+{
+  "name": "mongoose_apollo_demo_api",
+  "version": "1.0.0",
+  "description": "demo mongoose graphql node express api for simple auth, navigation, and data serving",
+  "main": "index.js",
+  "author": "Kielan Lemons <ki.lemons@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "body-parser": "1.17.2",
+    "cookie-parser": "1.4.3",
+    "express": "4.15.4",
+    "express-session": "1.15.5",
+    "graphql": "0.11.3",
+    "apollo-server-express": "1.1.2",
+    "graphql-subscriptions": "0.4.4",
+    "helmet": "3.8.1",
+    "mongoose": "4.11.0",
+    "morgan": "1.8.2",
+    "passport": "0.4.0",
+    "passport-http-bearer": "^1.0.1",
+    "passport-local": "^1.0.0",
+    "connect-mongo": "2.0.1"
+  }
+}
