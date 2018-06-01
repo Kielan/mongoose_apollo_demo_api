@@ -9,6 +9,7 @@ const { appConfig } = require('./config')
 const session = require('express-session')
 const MongoStore = require('connect-mongo')(session)
 const cookieParser = require('cookie-parser')
+const mongooseConnection = require('./db/connection');
 
 module.exports = function(app, passport) {
   /* middleware */
@@ -57,7 +58,7 @@ module.exports = function(app, passport) {
     key: 'sid',
     secret: appConfig.secret,
     store: new MongoStore({
-      mongooseConnection: app.db,
+      mongooseConnection: mongooseConnection.connection,
       session: 'Users'
     }),
     cookie: { secure: true, sameSite: true, expires: expires},

@@ -5,7 +5,7 @@ const {
 } = require('apollo-server-express')
 const schema = require('../schema')
 
-exports.api = graphqlExpress((req, res) => ({context: { req, res }, schema: schema })) // user schema
+exports.api = graphqlExpress((req, res) => ({context: { req, res, db: req.app.db }, schema: schema })) // user schema
 exports.docs = graphiqlExpress((req) => { // GraphiQL view
   let url = req.app.url.replace('https:','wss:')
   return {
