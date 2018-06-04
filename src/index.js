@@ -1,5 +1,7 @@
 'use strict'
+global.Promise = require('bluebird')
 const fs = require('fs')
+const db = require('./db')
 const express = require('express')
 const passport = require('passport')
 const helmet = require('helmet')
@@ -7,31 +9,22 @@ const { json, urlencoded  } = require('body-parser')
 const { createServer } = require('https')
 const { subscribe, execute } = require('graphql')
 const { SubscriptionServer } = require('subscriptions-transport-ws')
+const { graphqlExpress, graphiqlExpress } = require('apollo-server-express')
 
-const { appConfig, dbConfig } = require('./config')
+const { dbConfig, appConfig } = require('./config')
 const schema = require('./schema')
-const mongoose = require('./db/connection')
 const key = fs.readFileSync('./https/key.pem')
 const cert = fs.readFileSync('./https/cert.pem')
 
 const app = express()
 app.url = `${appConfig.url}:${appConfig.port}`
-app.db = mongoose
+app.db = db
 
-// configure
 require('./config/passport')(passport)
 app.use(helmet())
+// configure the app to use bodyParser()
+app.use(urlencoded({ extended: true }));
 app.use(json())
-
-// app.use(
-//   '/graphql',
-//   graphqlExpress({
-//     context: {
-//       db
-//     },
-//     schema
-//   })
-// )
 
 // routes
 require('./routes')(app, passport)

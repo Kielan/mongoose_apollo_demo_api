@@ -1,7 +1,7 @@
 'use strict'
 const LocalStrategy = require('passport-local').Strategy
 const TokenStrategy = require("passport-http-bearer").Strategy
-const db = require('../db/connection')
+const db = require('../db')
 
 module.exports = function(passport) {
   // user auth from passport local
@@ -15,17 +15,17 @@ module.exports = function(passport) {
   passport.use(new LocalStrategy({
       usernameField : 'email',
       passwordField : 'password',
-      passReqToCallback : true
+      passReqToCallback : true,
     },
     function(req, email, password, done) {
-      db.Users.check(email,password)
+      db.Users.findOne(email,password)
         .then(user => {
           if (!user) {
            return done(null, false, req.flash('loginMessage', 'Invalid credentials provided. Please, try again.'))
           } else if (!user.status) {
             return done(null, false, req.flash('loginMessage', 'User account has been disabled. Contact your administrator for more information.'))
           } else {
-            return done(null, user);
+            return done(null, user)
           }
         })
     }
@@ -37,7 +37,7 @@ module.exports = function(passport) {
         if (!user || user.status == null) {
           return next(null, false);
         } else {
-          return next(null, user);
+          return next(null, user)
         }
       })
   }))

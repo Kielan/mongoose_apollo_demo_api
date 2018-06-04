@@ -1,13 +1,15 @@
 'use strict'
 const mongoose = require('mongoose')
+mongoose.Promise = global.Promise;
 const { dbConfig } = require('../config')
 
-const connection = mongoose.connection
+const db = mongoose.createConnection('mongodb://localhost/example_graphql_api');
 
 mongoose.set('debug', true)//debug || false)
-connection.on('error', function(err) {
+db.on('error', function(err) {
   console.log("mongoose ERROR")
   console.log(err)
 })
 
-module.exports = mongoose
+module.exports.mongoose = mongoose
+module.exports.db = db

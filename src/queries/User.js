@@ -49,7 +49,6 @@ module.exports = {
               }
           });
         })
-        .catch(errors => (console.level=='debug' ? errors : 'User not found.'));
     } else {
       return 'User not found';
     }

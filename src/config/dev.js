@@ -2,8 +2,7 @@
 const generateToken = require('../tools/generateToken')
 
 exports.appConfig = {
-  host: process.env.API_HOST || 'api.lemod-helper.com',
-  url: process.env.API_URL || 'https://api.lemod-helper.com',
+  url: process.env.API_URL || 'https://api.graphqldemo.com',
   port: process.env.API_PORT || 3443,
   secret: process.env.API_SECRET || generateToken(),
 }
